@@ -25,7 +25,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./server  # Docker 构建上下文目录
-          file: ./server/Dockerfile  # Dockerfile 路径
+          context: /server  # Docker 构建上下文目录
           push: true
           tags: darkqiank/whois:latest  # 替换为您的 Docker Hub 用户名和镜像名称
