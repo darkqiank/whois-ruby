@@ -27,7 +27,7 @@ jobs:
         AWS_REGION: ${{ secrets.AWS_REGION }}
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
       run: |
-        aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
+        aws ecr-public get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY
       
     - name: Build and push Docker image
       env:
@@ -36,7 +36,8 @@ jobs:
         ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
       run: |
         # Build the Docker image
-        docker build -t $ECR_REGISTRY/$IMAGE_NAME:$TAG .
+        docker build -t $IMAGE_NAME .
+        docker tag $IMAGE_NAME:$TAG $ECR_REGISTRY/$IMAGE_NAME:$TAG
         # Push the Docker image to ECR
         docker push $ECR_REGISTRY/$IMAGE_NAME:$TAG
 
