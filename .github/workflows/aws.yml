@@ -2,7 +2,7 @@ name: push-to-ecr
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   push-to-ecr:
