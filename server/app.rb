@@ -9,7 +9,7 @@ class MyWhoisApp < Sinatra::Base
     domain = params['domain']
     begin
       response = @@whois_client.lookup(domain)
-      
+      whois_server_host = response.server.host
       content_type :json
 
       def clean_invalid_utf8(string)
@@ -35,6 +35,7 @@ class MyWhoisApp < Sinatra::Base
 
       result = {
         domain: domain,
+        whois_server_host: whois_server_host,
         raw_data: encode_value(response.content)
       }
 
