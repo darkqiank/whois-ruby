@@ -76,6 +76,7 @@ class MyWhoisApp < Sinatra::Base
       }.to_json
 
     rescue Timeout::Error
+      status 504 # Gateway Timeout
       {
         code: 102,
         msg: "timeout",
@@ -93,6 +94,7 @@ class MyWhoisApp < Sinatra::Base
       }.to_json
 
     rescue StandardError => e
+      status 500
       {
         code: 104,
         msg: "其他错误 #{e.class} - #{e.message}"
